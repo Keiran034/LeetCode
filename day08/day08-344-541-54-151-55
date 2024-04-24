@@ -1,0 +1,88 @@
+# 代码随想录算法训练营第六天|  344.反转字符串、541. 反转字符串II、54.替换数字、151.翻转字符串里的单词、55.右旋转字符串
+
+## 344.反转字符串
+[链接](https://leetcode.cn/problems/reverse-string/)  
+想法就是将字符数组劈成两半，左右两两一对交换位置。需要考虑的问题就是在字符串长度为奇数时的处理。  
+想到只要能处理好这个“对半”的半在哪里就好解决了，因为奇数长度时让中间的一位自己和自己交换也行，不参与交换也行。发现直接除2就能满足。
+```
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public void reverseString(char[] s) {
+        char temp;
+        for(int i=0; i < (s.length+1)/2; i++){
+            temp = s[i];
+            s[i] = s[s.length-1-i];
+            s[s.length-1-i] = temp;
+        }
+    }
+}
+```
+
+### 题解
+嘶我不用reverse主要是我不会。双指针的想法也是两两对位交换。
+
+## 541. 反转字符串II
+[链接](https://leetcode.cn/problems/reverse-string-ii/)  
+在这里用了题解里的判断方法，自己之前写的有些太不简洁
+```
+class Solution {
+    public String reverseStr(String s, int k) {
+        char[] charArr = s.toCharArray();
+        int end;
+        for(int i=0; i<charArr.length; i+=2*k){
+            end = Math.min(charArr.length - 1,i + k - 1);
+            charArr = reverse(charArr, i, end);
+        }
+        String ans = new String(charArr);
+        return ans;
+    }
+    // reverse char array [a:b]
+    private char[] reverse(char[] str, int a, int b){
+        System.out.print(a);
+        System.out.println(b);
+        char temp;
+        for(int i=0; i<(b-a+1)/2; i++){
+            temp = str[a+i];
+            str[a+i] = str[b-i];
+            str[b-i] = temp;
+        }
+        return str;
+    }
+}
+```
+
+### 题解
+
+
+##  54.替换数字
+[链接](https://kamacoder.com/problempage.php?pid=1064)  
+
+
+### 题解
+
+## 151. 反转字符串中的单词
+拿到题目以为只是反转单词顺序，直接用了`.split(" ")`然后做了跟344一样的操作，最后再拼成字符串。但是发现前导和尾随空格的问题无法解决。
+```
+class Solution {
+    public String reverseWords(String s) {
+        String[] strArr = s.split(" ");
+        for(int i=0; i<strArr.length/2; i++){
+            String temp = strArr[i];
+            strArr[i] = strArr[strArr.length-1-i];
+            strArr[strArr.length-1-i] = temp;
+        }
+        String str = "";
+        for(int i=0; i<strArr.length; i++){
+            str += strArr[i];
+            if(i != strArr.length-1){str += " ";}
+        }
+        return str;
+    }
+}
+```
+### 题解
+自己不会用`StringBuilder`也不知道它的`removeSpace`，是需要积累的。
+
+2024.0425
